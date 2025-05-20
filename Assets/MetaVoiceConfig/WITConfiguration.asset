@@ -587,9 +587,7 @@ MonoBehaviour:
   useIntentAttributes: 1
   useConduit: 1
   _manifestLocalPath: ConduitManifest-4eb5604d-a9b5-474c-9b04-ddcb693a6067.json
-  excludedAssemblies:
-  - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  excludedAssemblies: []
   relaxedResolution: 0
 --- !u!114 &8906500745836902452
 MonoBehaviour:
