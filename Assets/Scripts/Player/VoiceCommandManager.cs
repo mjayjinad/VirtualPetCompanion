@@ -19,19 +19,9 @@ public class VoiceCommandManager : MonoBehaviour
 
     private string currentTranscription;
 
-    private void Start()
+    public void InitializeSpawnedPet()
     {
-        MRUK.Instance.SceneLoadedEvent.AddListener(InitializeSpawnedPet);
-    }
-
-    private void InitializeSpawnedPet()
-    {
-        StartCoroutine(InitializeSpawnedPetCoroutine());
-    }
-
-    private IEnumerator InitializeSpawnedPetCoroutine()
-    {
-        yield return new WaitForEndOfFrame();
+        Debug.LogError("pet spawner called");
         pet = spawner.spawnedPet.GetComponent<Pet>();
     }
 

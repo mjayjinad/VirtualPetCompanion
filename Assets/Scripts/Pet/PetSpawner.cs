@@ -2,10 +2,11 @@ using Meta.XR.MRUtilityKit;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PetSpawner : MonoBehaviour
 {
-    public enum PetType
+    private enum PetType
     {
         dog,
         cat
@@ -13,26 +14,28 @@ public class PetSpawner : MonoBehaviour
 
     public GameObject spawnedPet;
 
-    [SerializeField] PetType petType;
+    private PetType petType;
     [SerializeField] private List<GameObject> petPrefab;
     [SerializeField] private GameObject ball;
-    [SerializeField] private Transform spawnLocation;
+    [SerializeField] private Button dogBtn;
+    [SerializeField] private Button catBtn;
     [SerializeField] private float minEdgeDistance;
     [SerializeField] private float normalOffset;
     [SerializeField] private MRUKAnchor.SceneLabels spawnLabel;
+    [SerializeField] private VoiceCommandManager commandManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        spawnLocation = Camera.main.transform;
-        MRUK.Instance.SceneLoadedEvent.AddListener(() => SpawnPet(petType));
-        MRUK.Instance.SceneLoadedEvent.AddListener(SpawnBall);
+        dogBtn.onClick.AddListener(() => InitializePet(PetType.dog));
+        catBtn.onClick.AddListener(() => InitializePet(PetType.cat));
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializePet(PetType pet)
     {
-        
+        SpawnPet(pet);
+        SpawnBall();
+        commandManager.InitializeSpawnedPet();
     }
 
     private void SpawnBall()
@@ -53,7 +56,6 @@ public class PetSpawner : MonoBehaviour
         LabelFilter labelFilter = new LabelFilter(spawnLabel);
 
         room.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP, minEdgeDistance, labelFilter, out Vector3 surfacePosition, out Vector3 norm);
-        //room.TryGetClosestSurfacePosition(spawnLocation.position, out Vector3 surfacePosition, out MRUKAnchor closestAnchor, out Vector3 norm, labelFilter);
 
         Vector3 spawnPos = surfacePosition + norm * normalOffset;
         spawnPos.y = 0;
