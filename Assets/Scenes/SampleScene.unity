@@ -11625,6 +11625,7 @@ GameObject:
   - component: {fileID: 1037154073}
   - component: {fileID: 1037154070}
   - component: {fileID: 1037154072}
+  - component: {fileID: 1037154075}
   - component: {fileID: 1037154074}
   m_Layer: 0
   m_Name: App Voice Experience
@@ -11851,13 +11852,13 @@ MonoBehaviour:
   completeTranscription:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1037154074}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 1037154075}
+        m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+        m_MethodName: OnFullTranscription
+        m_Mode: 0
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 6223b7d8394393446832dde400b6e1e3, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11960,6 +11961,162 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1037154075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037154069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df0b4d2d5b159544a5afb2aa6dd2c4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appVoiceExperience: {fileID: 1037154070}
+  voiceCommands:
+  - commandPhrases:
+    - Set
+    - Seat
+    - Cite
+    - Sit
+    - Sit down
+    - Six
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: SitCommand
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandPhrases:
+    - Stand
+    - Sand
+    - Stond
+    - Stun
+    - Stan
+    - Stand Up
+    - Stan Up
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: StandCommand
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandPhrases:
+    - Wiggle
+    - We go
+    - Will go
+    - Google
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: StartWiggle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandPhrases:
+    - Bark
+    - Back
+    - Bag
+    - Ban
+    - Bags
+    - Start Barking
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: BarkCommand
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandPhrases:
+    - Come
+    - Come here
+    - Turn here
+    - Cum here
+    - Cum
+    - Turn
+    - Some
+    - Some here
+    - Move towards me
+    - Come yeah
+    - Move here
+    - Move yeah
+    - Some yeah
+    - sum yeah
+    - song
+    - son
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: WalkToPlayerCommand
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandPhrases:
+    - Follow me
+    - Fellow me
+    - Fellow
+    - Follow
+    - Folo
+    onCommandTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1037154075}
+          m_TargetAssemblyTypeName: VoiceCommandManager, Assembly-CSharp
+          m_MethodName: FollowPlayerCommand
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  pet: {fileID: 0}
+  spawner: {fileID: 1614558235}
 --- !u!1 &1037270249
 GameObject:
   m_ObjectHideFlags: 0
@@ -18151,9 +18308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c6181d6289a6d409445ca858a75ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnedPet: {fileID: 0}
   petType: 0
   petPrefab:
-  - {fileID: 3361449209552883475, guid: 6dad737e0759a744886309e649943e4c, type: 3}
+  - {fileID: 381845585717171240, guid: 40a82efffb9b4be4f88350e7599997a7, type: 3}
   - {fileID: 7558873292844489373, guid: a9296ccb1a7240742a70ebaa4990332c, type: 3}
   ball: {fileID: 2303823079966235420, guid: fdad97bbb32ff3448a9e6e46a0458d36, type: 3}
   spawnLocation: {fileID: 784452482}

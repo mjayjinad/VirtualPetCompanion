@@ -33,7 +33,11 @@ public class VoiceManager : MonoBehaviour
         appVoiceExperience.Activate();
     }
 
-    private void ReactivateVoice() => appVoiceExperience.Activate();
+    private void ReactivateVoice()
+    {
+        Debug.Log("Voice Reactivated");
+        appVoiceExperience.Activate();
+    } 
 
     private void WakeWordDetected(string[] arg)
     {
@@ -51,6 +55,7 @@ public class VoiceManager : MonoBehaviour
     {
         if(!voiceCommandReady) return;
         voiceCommandReady = false;
+        appVoiceExperience.Deactivate();
         completeTranscription?.Invoke(transcription);
     }
 

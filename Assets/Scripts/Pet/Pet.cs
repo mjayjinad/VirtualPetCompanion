@@ -10,18 +10,25 @@ public class Pet : MonoBehaviour
         Idle, 
         GoingToBall, 
         ReturningBall,
-        Wiggle
+        Wiggle,
+        Bark,
+        Stand,
+        Sit,
+        WalkToPlayer,
+        FollowPlayer,
+        Fetch
     }
+
     PetState currentState = PetState.Idle;
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform ballParent;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip barkClip;
     [SerializeField] private float speed;
     [SerializeField] private float stopDistanceToPlayer;
     [SerializeField] private float stopDistanceToBall;
-    [SerializeField] private float walkSpeed = 2f;
-    [SerializeField] private float runSpeed = 4f;
 
     // Distance thresholds
     public float runDistanceThreshold = 3.5f;
@@ -39,79 +46,127 @@ public class Pet : MonoBehaviour
         switch (currentState)
         {
             case PetState.Idle:
-                // Follow user
                 agent.SetDestination(userTransform.position);
-                float distToUser = Vector3.Distance(transform.position, userTransform.position);
-                if (distToUser < stopDistanceToPlayer)
+                if (Vector3.Distance(transform.position, userTransform.position) < stopDistanceToPlayer)
                 {
-                    animator.SetInteger("AnimationID", 7);  // Sit idle animation
+                    animator.SetInteger("AnimationID", 0);
                     agent.isStopped = true;
-                }
-                else
-                {
-                    //animator.SetInteger("AnimationID", 3);
-                    //agent.isStopped = false;
                 }
                 break;
 
             case PetState.GoingToBall:
-                if (ball != null)
+                animator.SetInteger("AnimationID", 3);
+                agent.isStopped = false;
+                agent.SetDestination(ball.transform.position);
+                // Check distance to ball to pick it up
+                if (Vector3.Distance(transform.position, ball.transform.position) < stopDistanceToBall)
                 {
-                    animator.SetInteger("AnimationID", 3);
-                    agent.isStopped = false;
-                    agent.SetDestination(ball.transform.position);
-                    // Check distance to ball to pick it up
-                    if (Vector3.Distance(transform.position, ball.transform.position) < stopDistanceToBall)
-                    {
-                        PickUpBall();
-                    }
-                }
-                else
-                {
-                    currentState = PetState.Idle; // ball lost, back to idle
+                    PickUpBall();
                 }
                 break;
 
             case PetState.ReturningBall:
-                animator.SetInteger("AnimationID", 3);
-                agent.isStopped = false;
-                agent.SetDestination(userTransform.position);
-                // Check if near user to drop ball
+                MoveToPlayer();
                 if (Vector3.Distance(transform.position, userTransform.position) < stopDistanceToPlayer)
                 {
                     DropBall();
                 }
                 break;
             case PetState.Wiggle:
-                Wiggle();
+                animator.SetInteger("AnimationID", 1);
                 break;
+            case PetState.Bark:
+                animator.SetInteger("AnimationID", 6);
+                break;
+            case PetState.Stand:
+                animator.SetInteger("AnimationID", 0);
+                break;
+            case PetState.Sit:
+                animator.SetInteger("AnimationID", 7);
+                break;
+            case PetState.WalkToPlayer:
+                MoveToPlayer();
+                if (Vector3.Distance(transform.position, userTransform.position) < stopDistanceToPlayer)
+                {
+                    currentState = PetState.Idle;
+                }
+                break;
+            case PetState.FollowPlayer:
+                MoveToPlayer();
+                if (Vector3.Distance(transform.position, userTransform.position) < stopDistanceToPlayer)
+                {
+                    agent.isStopped = true;
+                    animator.SetInteger("AnimationID", 0);
+                }
+                break;
+            case PetState.Fetch:
+                //StartFetch();
+                break;
+
         }
     }
 
-    public void StartWiggle()
+    public void SitCommand()
     {
+        StopSound();
+        currentState = PetState.Sit;
+    }
+
+    public void WiggleCommand()
+    {
+        StopSound();
         currentState = PetState.Wiggle;
     }
     
-    private void Wiggle()
+    public void BarkCommand()
     {
-        StartCoroutine(TouchPet());
+        StopSound();
+        currentState = PetState.Bark;
+        PlaySound(barkClip);
     }
-
-    private IEnumerator TouchPet()
+    
+    public void StandCommand()
     {
-        animator.SetInteger("AnimationID", 1);
-
-        yield return new WaitForSeconds(3);
-
-        animator.SetInteger("AnimationID", 7);
-        currentState = PetState.Idle;
+        StopSound();
+        currentState = PetState.Stand;
     }
-
+    
+    public void WalkToPlayerCommand()
+    {
+        StopSound();
+        currentState = PetState.WalkToPlayer;
+    }
+    
+    public void FollowPlayerCommand()
+    {
+        StopSound();
+        currentState = PetState.FollowPlayer;
+    }
+    
     public void StartFetch(GameObject thrownBall)
     {
+        StopSound();
         ball = thrownBall;
         currentState = PetState.GoingToBall;
+    }
+
+    private void PlaySound(AudioClip audioClip)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+    }
+
+    private void StopSound()
+    {
+        audioSource.clip = null;
+        audioSource.Stop();
+    }
+
+    private void MoveToPlayer()
+    {
+        animator.SetInteger("AnimationID", 3);
+        agent.isStopped = false;
+        agent.SetDestination(userTransform.position);
     }
 
     void PickUpBall()
@@ -169,6 +224,7 @@ public class Pet : MonoBehaviour
     void DropBall()
     {
         // Detach ball
+        if (ball == null) return;
         ball.transform.SetParent(null);
         Rigidbody rb = ball.GetComponent<Rigidbody>();
         rb.isKinematic = false;

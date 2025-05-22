@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FetchBall : MonoBehaviour
 {
-    public Pet pet;
+    private Pet pet;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

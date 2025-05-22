@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc30c9cbed89320409c216738083432a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pet: {fileID: 0}
 --- !u!135 &4863524720677900794
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -240,8 +239,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.63763267
+  m_Center: {x: 0, y: 0, z: 0.0063521415}
 --- !u!1 &5700543904223613719
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 6514509272971449114}
   _audioClips:
   - {fileID: 8300000, guid: 01ee74389d1a6844c9250d4230e734d3, type: 3}
   - {fileID: 8300000, guid: c778383a4f7517444bceb89ec51cc4c9, type: 3}
@@ -547,7 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925ef87c5bafc37469a2f7ec825dee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 1308800896615894592}
   _audioClips:
   - {fileID: 8300000, guid: ba24ea69ea5a83349b560a6d0abcef47, type: 3}
   - {fileID: 8300000, guid: cbaf8af418050074d94500378f012f45, type: 3}

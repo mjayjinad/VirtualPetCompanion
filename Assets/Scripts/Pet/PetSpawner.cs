@@ -11,6 +11,8 @@ public class PetSpawner : MonoBehaviour
         cat
     }
 
+    public GameObject spawnedPet;
+
     [SerializeField] PetType petType;
     [SerializeField] private List<GameObject> petPrefab;
     [SerializeField] private GameObject ball;
@@ -56,14 +58,13 @@ public class PetSpawner : MonoBehaviour
         Vector3 spawnPos = surfacePosition + norm * normalOffset;
         spawnPos.y = 0;
 
-        GameObject petToSpawn;
         switch (pet)
         {
             case PetType.dog:
-                petToSpawn = Instantiate(petPrefab[0], spawnPos, Quaternion.identity);
+                spawnedPet = Instantiate(petPrefab[0], spawnPos, Quaternion.identity);
                 break;
             case PetType.cat:
-                petToSpawn = Instantiate(petPrefab[1], spawnPos, Quaternion.identity);
+                spawnedPet = Instantiate(petPrefab[1], spawnPos, Quaternion.identity);
                 break;
             default:
                 Debug.Log("pet prefab was spawned");
